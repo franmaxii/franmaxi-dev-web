@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+    {
+        q: "¿Cuál es la diferencia entre el Desarrollo Corporativo y los Sistemas de IA?",
+        a: "El Desarrollo Corporativo se realiza de forma manual utilizando Astro y Tailwind para el 'core' de tu marca (sitios web hiper-rápidos, landing pages principales, SEO avanzado). Por otro lado, nuestros Sistemas de IA generan subdominios dinámicos (usando Bootstrap 5 y Flask) pensados para validación rápida de ideas, flujos de trabajo internos o MVPs ágiles."
+    },
+    {
+        q: "¿Cuánto tiempo toma implementar una automatización o un Agente de IA?",
+        a: "Depende de la complejidad operativa. Un flujo estándar de n8n (ej. conectar WhatsApp a tu CRM) puede estar en producción en menos de una semana. Para Agentes de IA con memoria y contexto entrenados con los datos de tu empresa, el proceso de desarrollo, testing y despliegue toma entre 2 y 3 semanas."
+    },
+    {
+        q: "¿Cómo manejan la seguridad de los datos empresariales?",
+        a: "La seguridad es el pilar de nuestra infraestructura. Los flujos de n8n y nuestras bases de datos operan en instancias aisladas y privadas con cifrado en tránsito. Tus credenciales comerciales y claves de API se gestionan bajo políticas de acceso estático exclusivo, sin exposición al lado del cliente."
+    },
+    {
+        q: "¿Qué sucede si mi negocio escala y recibe picos masivos de tráfico?",
+        a: "Nuestra arquitectura Edge está diseñada exactamente para eso. Los sitios web corporativos se despliegan globalmente a través de la red de Cloudflare, soportando millones de peticiones con tiempos de carga en milisegundos. Tus operaciones automáticas no se caerán ante la alta demanda."
+    },
+    {
+        q: "¿Quién es el propietario del código y los flujos de automatización?",
+        a: "Tú mantienes el 100% de la propiedad intelectual. Una vez finalizado el desarrollo a medida y saldado el proyecto, todo el código fuente, los layouts y la lógica de los flujos operativos de n8n te pertenecen comercialmente."
+    },
+    {
+        q: "¿Ofrecen soporte técnico y mantenimiento continuo?",
+        a: "Sí. Entendemos que las APIs de terceros (como OpenAI o Meta) se actualizan constantemente. Ofrecemos planes de mantenimiento corporativo (SLA) para monitorear tus automatizaciones en n8n, actualizar versiones de infraestructura y garantizar que tu negocio opere en piloto automático sin interrupciones 24/7."
+    }
+];
+---
+
+<Layout title="Preguntas Frecuentes (FAQ) | FranMaxi.dev">
+    <main id="main-content" class="relative z-10 max-w-4xl mx-auto px-6 py-16 md:py-24">
+        
+        <a href="/" class="text-sm font-medium text-gray-400 hover:text-white transition-colors flex items-center gap-2 mb-8 group w-fit">
+            <span class="group-hover:-translate-x-1 transition-transform">←</span> Volver al inicio
+        </a>
+
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/20 bg-emerald-500/5 px-4 py-1.5 rounded-full">Soporte y Claridad</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mt-4">Preguntas <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Frecuentes</span></h1>
+        </div>
+
+        <div class="space-y-6">
+            {faqs.map((faq) => (
+                <div class="border border-gray-900 bg-black/50 backdrop-blur-sm p-6 md:p-8 rounded-2xl hover:border-gray-800 transition-colors">
+                    <h3 class="text-lg font-bold text-white mb-3 flex gap-3">
+                        <span class="text-emerald-400 font-black">Q.</span> {faq.q}
+                    </h3>
+                    <p class="text-gray-400 text-sm md:text-base font-light leading-relaxed pl-7">
+                        {faq.a}
+                    </p>
+                </div>
+            ))}
+        </div>
+
+        <div class="mt-16 text-center border-t border-gray-900 pt-10">
+            <p class="text-gray-400 mb-6">¿Tenés alguna duda técnica específica sobre tu ecosistema?</p>
+            <a href="/#contacto" class="inline-flex bg-white text-black px-6 py-3 rounded-full text-sm font-bold hover:bg-gray-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] focus:outline-none focus:ring-4 focus:ring-purple-500/50 active:scale-95">
+                Hablar con un ingeniero
+            </a>
+        </div>
+    </main>
+</Layout>
