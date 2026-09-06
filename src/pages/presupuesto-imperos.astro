@@ -1,0 +1,674 @@
+---
+// Propuesta comercial para IMPEROS — página autónoma, sin el Layout del sitio.
+// Diseño propio (identidad IMPEROS: verde botánico + marfil + latón).
+const fecha = "05.09.2026";
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <title>Presupuesto IMPEROS | FranMaxi.dev</title>
+  <meta
+    name="description"
+    content="Propuesta técnica y económica de FranMaxi para IMPEROS: web con catálogo, turnero con seña online, gestión de alquileres y automatización con n8n."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  />
+
+  <style is:global>
+    :root {
+      /* light palette — complete set (IMPEROS: verde botánico + marfil + latón) */
+      --bg: #f4f2ea;
+      --surface: #fffef9;
+      --surface-2: #eae5d6;
+      --border: #ddd6c2;
+      --border-strong: #c6bea3;
+      --text: #1a231e;
+      --muted: #59635c;
+      --faint: #8a9088;
+      --accent: #234b3b;
+      --accent-ink: #193728;
+      --accent-wash: #e5ece6;
+      --warm: #93743b;
+      --warm-wash: #f0e6cf;
+      --shadow: 0 1px 2px rgba(26, 35, 30, .05), 0 14px 34px -20px rgba(26, 35, 30, .22);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e1411;
+        --surface: #151d18;
+        --surface-2: #1c261f;
+        --border: #2b352e;
+        --border-strong: #3d4941;
+        --text: #edf0ea;
+        --muted: #99a29b;
+        --faint: #6d776f;
+        --accent: #83b89e;
+        --accent-ink: #9fccb6;
+        --accent-wash: #17231d;
+        --warm: #cba871;
+        --warm-wash: #241d10;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 44px -22px rgba(0, 0, 0, .62);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0e1411;
+      --surface: #151d18;
+      --surface-2: #1c261f;
+      --border: #2b352e;
+      --border-strong: #3d4941;
+      --text: #edf0ea;
+      --muted: #99a29b;
+      --faint: #6d776f;
+      --accent: #83b89e;
+      --accent-ink: #9fccb6;
+      --accent-wash: #17231d;
+      --warm: #cba871;
+      --warm-wash: #241d10;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 18px 44px -22px rgba(0, 0, 0, .62);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    img { max-width: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: clamp(1.25rem, 4vw, 3.5rem) clamp(1.1rem, 4vw, 3rem) 5rem;
+    }
+    .col { max-width: 760px; }
+
+    .eyebrow {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin: 0 0 1rem;
+    }
+    .backlink {
+      display: inline-block;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .72rem;
+      letter-spacing: .04em;
+      color: var(--faint);
+      text-decoration: none;
+      margin-bottom: 1.6rem;
+    }
+    .backlink:hover { color: var(--accent-ink); }
+    h1, h2, h3 {
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-optical-sizing: auto;
+      text-wrap: balance;
+    }
+    h1 {
+      font-size: clamp(2rem, 5.6vw, 3.15rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -.01em;
+      margin: 0 0 .9rem;
+    }
+    .lede {
+      font-size: clamp(1.02rem, 2.2vw, 1.18rem);
+      color: var(--muted);
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    /* ---- header ---- */
+    header { border-bottom: 1px solid var(--border); padding-bottom: 2.5rem; }
+    .brandbar {
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
+      margin-bottom: 2.4rem;
+    }
+    .wordmark {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-weight: 600;
+      font-size: 1.02rem;
+      letter-spacing: -.01em;
+    }
+    .wordmark .dev { color: var(--faint); font-weight: 400; }
+    .brandbar .rule {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--warm) 0%, var(--border-strong) 60%, transparent 100%);
+    }
+    .brandbar .kind {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .mono-i {
+      width: 20px; height: 26px;
+      flex-shrink: 0;
+      color: var(--warm);
+      transform: translateY(4px);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1px;
+      margin-top: 2.6rem;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .meta div { background: var(--surface); padding: .85rem 1rem; }
+    .meta dt {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .66rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin: 0 0 .3rem;
+    }
+    .meta dd { margin: 0; font-size: .92rem; font-weight: 500; display: flex; align-items: center; gap: .45rem; }
+
+    /* ---- sections ---- */
+    section { padding-top: 3.6rem; }
+    section > h2, section > .col > h2 {
+      font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+      font-weight: 500;
+      letter-spacing: -.005em;
+      margin: .4rem 0 1.3rem;
+    }
+    p { margin: 0 0 1rem; }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    /* ---- scope modules ---- */
+    .modules { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .module { background: var(--surface); padding: 1.5rem clamp(1.1rem, 3vw, 1.75rem); }
+    .module-head { display: flex; align-items: baseline; gap: .85rem; margin-bottom: .5rem; }
+    .tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--accent-ink);
+      background: var(--accent-wash);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .05rem .45rem;
+      flex-shrink: 0;
+    }
+    .module-head h3 { font-size: 1.14rem; font-weight: 600; margin: 0; }
+    .module > p { color: var(--muted); font-size: .95rem; margin: 0 0 .9rem; }
+    .module ul { margin: 0 0 1rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .module li { position: relative; padding-left: 1.35rem; font-size: .93rem; }
+    .module li::before {
+      content: "";
+      position: absolute;
+      left: .1rem; top: .62em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--warm);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .chip {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: .12rem .6rem;
+    }
+
+    /* ---- table ---- */
+    .scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; }
+    table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .9rem; }
+    thead th {
+      text-align: left;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 500;
+      padding: .8rem 1rem;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td { padding: .8rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; background: var(--surface); }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody td:first-child { font-weight: 600; width: 27%; }
+    tbody td:last-child { color: var(--muted); width: 30%; }
+
+    /* ---- numbered flow ---- */
+    .flow { display: flex; flex-direction: column; gap: 0; counter-reset: step; border-left: 1px solid var(--border-strong); margin-left: .5rem; padding: 0; }
+    .flow li { list-style: none; position: relative; padding: 0 0 1.6rem 2rem; }
+    .flow li:last-child { padding-bottom: 0; }
+    .flow li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: -13px; top: -2px;
+      width: 24px; height: 24px;
+      display: grid; place-items: center;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .78rem;
+      color: var(--accent-ink);
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ---- pricing ---- */
+    .price-note {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 1rem; }
+    .plan {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .plan.feature { border-color: var(--warm); box-shadow: var(--shadow); }
+    .plan .ptag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: .2rem;
+    }
+    .plan h3 { font-size: 1.12rem; font-weight: 600; margin: 0 0 .6rem; }
+    .plan .row { border-top: 1px solid var(--border); padding-top: .7rem; margin-top: .3rem; }
+    .plan .row:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+    .plan .k {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .64rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .plan .v { font-family: "IBM Plex Mono", monospace; font-size: 1.1rem; font-weight: 500; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+    .plan .v small { font-size: .8rem; color: var(--muted); font-weight: 400; }
+    .plan .fine { font-size: .82rem; color: var(--muted); margin: .2rem 0 0; }
+    .plan .ars { font-family: "IBM Plex Mono", monospace; font-size: .78rem; color: var(--faint); }
+    .plan-foot {
+      margin-top: 1.2rem;
+      font-size: .84rem;
+      color: var(--muted);
+      border-left: 2px solid var(--warm);
+      padding-left: .8rem;
+    }
+
+    /* ---- two-column lists ---- */
+    .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .split > div { background: var(--surface); padding: 1.3rem 1.4rem; }
+    .split h3 { font-family: "IBM Plex Mono", monospace; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 .9rem; font-weight: 500; }
+    .split.yes h3 { color: var(--accent-ink); }
+    .split.no h3 { color: var(--faint); }
+    .split ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .split li { font-size: .9rem; padding-left: 1.3rem; position: relative; }
+    .split.yes li::before { content: "+"; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+    .split.no li::before { content: "\2013"; position: absolute; left: 0; color: var(--faint); font-weight: 600; }
+
+    /* ---- timeline ---- */
+    .weeks { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .week { background: var(--surface); padding: 1rem 1.3rem; display: grid; grid-template-columns: 92px 1fr; gap: 1rem; align-items: baseline; }
+    .week .w {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+    .week .d { font-size: .93rem; }
+
+    /* ---- lists ---- */
+    .stack-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .stack-list li { font-size: .93rem; padding-left: 1.1rem; position: relative; color: var(--muted); }
+    .stack-list li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .stack-list b { color: var(--text); font-weight: 600; }
+
+    footer.doc {
+      margin-top: 4rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--border);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: .78rem;
+      color: var(--faint);
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem 1.2rem;
+    }
+    footer.doc a { color: var(--muted); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      a { transition: color .15s ease; }
+    }
+    @media (max-width: 560px) {
+      .week { grid-template-columns: 1fr; gap: .2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <a class="backlink" href="/">&larr; franmaxi.dev</a>
+
+    <header>
+      <div class="brandbar">
+        <span class="wordmark">FranMaxi<span class="dev">.dev</span></span>
+        <span class="rule" aria-hidden="true"></span>
+        <span class="kind">Propuesta</span>
+      </div>
+
+      <div class="col">
+        <p class="eyebrow">Propuesta técnica y económica &middot; {fecha}</p>
+        <h1>Sistema de alquiler y reservas para IMPEROS</h1>
+        <p class="lede">Web con catálogo, turnero con seña online, gestión de alquileres y automatización de datos de punta a punta — sincronizado con el inventario que IMPEROS ya organiza en Google Drive.</p>
+      </div>
+
+      <dl class="meta">
+        <div>
+          <dt>Cliente</dt>
+          <dd>
+            <svg class="mono-i" viewBox="0 0 22 28" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="20" height="26" stroke="currentColor" stroke-width="1"></rect>
+              <rect x="3.75" y="3.75" width="14.5" height="20.5" stroke="currentColor" stroke-width="0.6"></rect>
+              <path d="M7.5 8.4h7M7.5 19.6h7M11 8.4v11.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+            </svg>
+            IMPEROS
+          </dd>
+        </div>
+        <div><dt>Rubro</dt><dd>Alquiler de vestidos de fiesta</dd></div>
+        <div><dt>Preparado por</dt><dd>Fran Maxi &middot; franmaxi.dev</dd></div>
+        <div><dt>Validez</dt><dd>15 días</dd></div>
+      </dl>
+    </header>
+
+    <section class="col">
+      <h2>Objetivo</h2>
+      <p><strong>Para la clienta:</strong> descubrir un vestido en el catálogo, reservar su cita de prueba para la fecha del evento y dejar la seña paga en menos de dos minutos, sin que IMPEROS mueva un dedo. La confirmación, el bloqueo de fechas, el recordatorio de prueba y el de devolución salen solos.</p>
+      <p><strong>Para IMPEROS:</strong> un lugar propio para llevar el control de los alquileres — qué vestido está disponible, reservado, alquilado o en tintorería en cada fecha, con las señas y los saldos a la vista. El inventario se sigue organizando en las carpetas de Google Drive de siempre; el sitio se actualiza a partir de ahí.</p>
+    </section>
+
+    <section>
+      <div class="col"><h2>Alcance del proyecto</h2>
+      <p>Seis componentes que se entregan y facturan como un solo sistema. Las letras son para referencia dentro de este documento, no un orden de trabajo.</p></div>
+
+      <div class="modules">
+        <article class="module">
+          <div class="module-head"><span class="tag">A</span><h3>Sitio web y catálogo visual</h3></div>
+          <p>La cara pública. Rápida, ordenada y pensada para que la clienta pase del vestido a la reserva sin fricción.</p>
+          <ul>
+            <li>Diseño UX/UI a medida, mobile-first, con foco en la conversión estética</li>
+            <li>Catálogo filtrable por categoría (gala, cóctel, civil, novia), talle, color y ocasión</li>
+            <li>Ficha de vestido con galería y botón directo: «Reservar para mi evento»</li>
+            <li>SEO técnico local: schema <em>LocalBusiness</em> + <em>Product</em>, sitemap, carga &lt; 1 s y alta en Google Business Profile</li>
+          </ul>
+          <div class="chips"><span class="chip">Astro</span><span class="chip">Tailwind</span><span class="chip">Cloudflare</span></div>
+        </article>
+
+        <article class="module">
+          <div class="module-head"><span class="tag">B</span><h3>Turnero de citas y pago de seña</h3></div>
+          <p>Una agenda que solo confirma turnos cuando hay plata acreditada.</p>
+          <ul>
+            <li>Turnero con disponibilidad real, integrado a la ficha de cada vestido, con la fecha del evento como dato de partida</li>
+            <li>Sincronización bidireccional con el Google Calendar de IMPEROS para evitar superposiciones</li>
+            <li>Cobro de <strong>seña obligatoria</strong> o pago total vía Mercado Pago antes de confirmar; la seña se descuenta del alquiler</li>
+            <li>El turno queda reservado únicamente cuando se acredita el pago → ausentismo cerca de cero</li>
+            <li>Base sobre Cal.com self-hosted: ya trae calendario, cobro y recordatorios — se configura, no se programa</li>
+          </ul>
+          <div class="chips"><span class="chip">Cal.com</span><span class="chip">Google Calendar API</span><span class="chip">Mercado Pago</span></div>
+        </article>
+
+        <article class="module">
+          <div class="module-head"><span class="tag">C</span><h3>Automatización de datos con n8n</h3></div>
+          <p>El cerebro en segundo plano. Cada reserva dispara una cadena de acciones sin intervención humana.</p>
+          <ul>
+            <li>n8n como orquestador central, corriendo en el servidor propio</li>
+            <li>Al acreditarse el pago: WhatsApp automático con fecha de prueba, link al vestido y fecha de retiro</li>
+            <li>Los mensajes salen por Evolution API desde un número de WhatsApp dedicado, sin costo por mensaje</li>
+            <li>Recordatorios automáticos: 24 h antes de la prueba y 24 h antes de la devolución</li>
+            <li>Alta automática en Google Sheets: clienta, vestido, fechas, seña, saldo y depósito — sin cargar una fila a mano</li>
+            <li>Aviso interno al equipo por el canal que usen</li>
+          </ul>
+          <div class="chips"><span class="chip">n8n</span><span class="chip">Evolution API</span><span class="chip">Google Sheets API</span></div>
+        </article>
+
+        <article class="module">
+          <div class="module-head"><span class="tag">D</span><h3>Infraestructura y servidor dedicado</h3></div>
+          <p>Todo alojado en un entorno propio y controlado, no en cuentas de terceros que un día cambian las reglas.</p>
+          <ul>
+            <li>VPS dedicado en Hetzner (~4 GB de RAM) con administración propia, encendido 24/7</li>
+            <li>Contenedores Docker + Portainer; Caddy como reverse proxy con TLS automático</li>
+            <li>PocketBase como base de datos y almacenamiento de las fotos (motor en Go, muy liviano)</li>
+            <li>En la misma máquina corren n8n, Evolution API y el turnero Cal.com, cada uno en su contenedor</li>
+            <li>Cloudflare adelante: caché de las imágenes pesadas, protección DDoS y DNS</li>
+            <li>Backups automáticos diarios de la base y los archivos</li>
+          </ul>
+          <div class="chips"><span class="chip">Hetzner</span><span class="chip">Docker</span><span class="chip">Portainer</span><span class="chip">Caddy</span><span class="chip">PocketBase</span><span class="chip">Evolution API</span><span class="chip">Cloudflare</span></div>
+        </article>
+
+        <article class="module">
+          <div class="module-head"><span class="tag">E</span><h3>Gestión de alquileres</h3></div>
+          <p>El control interno corre sobre el administrador de PocketBase: tablas de vestidos, clientas y alquileres con búsqueda, filtros y edición. Acceso privado con usuario y contraseña.</p>
+          <ul>
+            <li>Registro de cada alquiler: clienta, vestido, fecha de evento, retiro y devolución, seña, saldo y depósito</li>
+            <li>Estados de inventario: <em>disponible · reservado · alquilado · en tintorería · en arreglo · fuera de circulación</em></li>
+            <li>Filtros por estado y por fecha para ver de un vistazo qué está comprometido y qué está libre</li>
+            <li>Estos datos alimentan los recordatorios de n8n y la planilla de Google Sheets</li>
+            <li><strong>Fase 2 opcional:</strong> panel a medida con calendario visual, alertas de devolución y saldo, y uso optimizado para el celular</li>
+          </ul>
+          <div class="chips"><span class="chip">PocketBase Admin</span><span class="chip">Acceso protegido</span></div>
+        </article>
+
+        <article class="module">
+          <div class="module-head"><span class="tag">F</span><h3>Sincronización con Google Drive</h3></div>
+          <p>IMPEROS sigue trabajando en Drive como hasta ahora; el catálogo y el panel se alimentan de esas carpetas.</p>
+          <ul>
+            <li>Cada carpeta de Drive representa un vestido; las fotos de la carpeta alimentan la galería del catálogo</li>
+            <li>n8n vigila las carpetas: carpeta o foto nueva → se crea o actualiza el vestido, y la imagen se copia optimizada a la infraestructura propia (sin depender de la velocidad de Drive)</li>
+            <li>Convención mínima de nombres para la carpeta (ej. <em>«GALA-018 · Verde esmeralda · T38»</em>) para mapear categoría, color y talle</li>
+            <li>El precio de alquiler y el estado se cargan una sola vez en el panel</li>
+            <li>La sincronización va en un solo sentido: Drive → sitio. Requiere una cuenta de servicio de Google con acceso de lectura a las carpetas</li>
+          </ul>
+          <div class="chips"><span class="chip">n8n</span><span class="chip">Google Drive API</span><span class="chip">Cuenta de servicio</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="col"><h2>Cómo se cubre cada requerimiento</h2>
+      <p>Tu lista, punto por punto, contra el componente que lo resuelve.</p></div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Requerimiento</th><th>Solución</th><th>Nota</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Posicionamiento (SEO)</td><td>Astro estático + SEO técnico + schema + Google Business Profile</td><td>Incluido · Módulo A</td></tr>
+            <tr><td>Automatización de «citas»</td><td>Turnero integrado a la ficha de cada vestido</td><td>Incluido · Módulo B</td></tr>
+            <tr><td>UX amistosa</td><td>Diseño a medida, flujo de reserva en 3 pasos</td><td>Incluido · Módulo A</td></tr>
+            <tr><td>Catálogo de vestidos</td><td>Colección PocketBase alimentada desde Google Drive</td><td>Incluido · Módulos A + F</td></tr>
+            <tr><td>Notificación por WhatsApp</td><td>Workflow de n8n + Evolution API (WhatsApp self-hosted en el servidor)</td><td>Sin costo por mensaje · requiere un número dedicado, ver abajo</td></tr>
+            <tr><td>Integración Google Calendar</td><td>Sincronización bidireccional nativa</td><td>Configuración OAuth inicial incluida</td></tr>
+            <tr><td>Registro en Google Sheets</td><td>Workflow de n8n en tiempo real</td><td>Incluido · Módulo C</td></tr>
+            <tr><td>Seña o pago total</td><td>Mercado Pago + webhook de confirmación</td><td>Comisión de Mercado Pago a cargo de IMPEROS</td></tr>
+            <tr><td>Base de datos + servidor dedicado</td><td>VPS Hetzner + Docker + PocketBase</td><td>Costo de infraestructura incluido en el abono</td></tr>
+            <tr><td>Flujo de datos con n8n</td><td>Orquestador central de todo el ciclo del alquiler</td><td>Incluido · Módulo C</td></tr>
+            <tr><td>Panel para llevar el control de los alquileres</td><td>Administrador de PocketBase: tablas, filtros y estados de inventario</td><td>Incluido · Módulo E · panel a medida como fase 2</td></tr>
+            <tr><td>Inventario ya organizado en Google Drive</td><td>Sincronización Drive → catálogo con n8n y convención de nombres</td><td>Incluido · Módulo F · requiere acceso de lectura</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="col">
+      <h2>El recorrido de la clienta</h2>
+      <ol class="flow">
+        <li>Entra a la web, encuentra un vestido en el catálogo y toca «Reservar para mi evento» con la fecha.</li>
+        <li>Elige día y horario de prueba en el turnero.</li>
+        <li>Paga la seña por Mercado Pago; queda a cuenta del alquiler.</li>
+        <li>Recibe un WhatsApp con la confirmación, el link al vestido y la fecha de retiro. Le llegan recordatorios 24 h antes de la prueba y 24 h antes de la devolución.</li>
+        <li>IMPEROS ve la reserva en el panel: el vestido queda bloqueado en esas fechas, la seña registrada, y todo vuelca a Google Sheets vía n8n.</li>
+      </ol>
+    </section>
+
+    <section>
+      <div class="col"><h2>Inversión</h2>
+      <div class="price-note">
+        <p><strong>El servidor no es opcional.</strong> Todo el entorno corre en un servidor propio encendido las 24 horas: ahí viven la base de datos y las fotos (PocketBase), las automatizaciones (n8n), el WhatsApp (Evolution API) y el turnero (Cal.com). Por eso las dos opciones llevan un mantenimiento mensual.</p>
+        <p><strong>Valores de lanzamiento, en pesos.</strong> Es el primer proyecto de FranMaxi en este formato e IMPEROS colabora con la difusión. El mantenimiento mensual se revisa cada 6 meses según la inflación del período (índice a acordar).</p>
+      </div></div>
+
+      <div class="plans">
+        <article class="plan feature">
+          <p class="ptag">Recomendada</p>
+          <h3>Opción A — Lanzamiento y caso de éxito</h3>
+          <div class="row">
+            <p class="k">Desarrollo</p>
+            <p class="v">$450.000</p>
+            <p class="fine">50 % para iniciar · 50 % a la entrega</p>
+          </div>
+          <div class="row">
+            <p class="k">Mantenimiento mensual</p>
+            <p class="v">$35.000 – $40.000 <small>/ mes</small></p>
+            <p class="fine">Servidor, n8n, PocketBase, Evolution API, backups, monitoreo y hasta 2 ajustes menores por mes</p>
+          </div>
+          <div class="row">
+            <p class="k">Condición</p>
+            <p class="fine">Firma del acuerdo de difusión y crédito con enlace a franmaxi.dev en el pie del sitio.</p>
+          </div>
+        </article>
+
+        <article class="plan">
+          <p class="ptag">Sin inversión inicial</p>
+          <h3>Opción B — Suscripción</h3>
+          <div class="row">
+            <p class="k">Desarrollo</p>
+            <p class="v">$0</p>
+          </div>
+          <div class="row">
+            <p class="k">Mantenimiento mensual</p>
+            <p class="v">$85.000 <small>/ mes</small></p>
+            <p class="fine">Montamos todo el ecosistema sin cobrar desarrollo; costo predecible, todo incluido.</p>
+          </div>
+          <div class="row">
+            <p class="k">Condición</p>
+            <p class="fine">Permanencia mínima de 6 a 8 meses.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="plan-foot">Sin comisiones sobre las reservas ni las señas. WhatsApp sin costo por mensaje (Evolution API); la línea dedicada corre por cuenta de IMPEROS. El panel a medida (fase 2) se cotiza aparte: +$200.000 – $300.000.</p>
+    </section>
+
+    <section class="col">
+      <h2>Costos de terceros — a cargo de IMPEROS</h2>
+      <ul class="stack-list">
+        <li><b>WhatsApp (Evolution API).</b> Se autohospeda en el mismo servidor: sin costo por mensaje. Requiere una <b>línea de WhatsApp dedicada</b> — un número nuevo, no el personal. Riesgo: WhatsApp puede bloquear el número si detecta envíos masivos; se acota con volumen bajo, mensajes moderados y ese número exclusivo. Si el volumen crece, se migra a la API oficial de Meta (con costo por conversación).</li>
+        <li><b>Mercado Pago.</b> Sin costo de alta. Comisión por cobro con acreditación inmediata cercana a 6,29 % + IVA, según rubro y plazo de acreditación elegido.</li>
+        <li><b>Dominio.</b> El costo del registrador si hay que dar de alta uno nuevo — un <em>.com.ar</em> suele ser muy económico.</li>
+        <li><b>Google Drive, Calendar y Sheets.</b> Sin costo adicional: se usa la cuenta de Google que IMPEROS ya tiene.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="col"><h2>Qué incluye y qué no</h2></div>
+      <div class="split yes">
+        <div>
+          <h3>Incluye</h3>
+          <ul>
+            <li>Diseño UX/UI a medida, sin plantillas</li>
+            <li>Hasta 6 categorías de catálogo y sincronización inicial de hasta 60 vestidos desde Drive</li>
+            <li>Todas las integraciones listadas: Drive, Calendar, Sheets, Mercado Pago, WhatsApp (Evolution)</li>
+            <li>Gestión de alquileres sobre el administrador de PocketBase, con acceso protegido</li>
+            <li>Turnero Cal.com self-hosted configurado</li>
+            <li>Una sesión de capacitación para el equipo</li>
+            <li>30 días de garantía y ajustes post-publicación</li>
+          </ul>
+        </div>
+      </div>
+      <div class="split no" style="margin-top:1px">
+        <div>
+          <h3>No incluye</h3>
+          <ul>
+            <li>Panel de gestión a medida — calendario visual, alertas, uso optimizado en celular (fase 2, +$200.000 – $300.000)</li>
+            <li>La línea de WhatsApp dedicada para los envíos automáticos</li>
+            <li>Producción fotográfica de los vestidos</li>
+            <li>Redacción de fichas y copywriting extenso</li>
+            <li>Reorganización de las carpetas de Google Drive actuales (se define una convención de nombres y la aplica IMPEROS)</li>
+            <li>Carga manual de inventario histórico más allá de lo que llegue por la sincronización de Drive</li>
+            <li>Diseño de identidad de marca (logo, paleta)</li>
+            <li>Campañas de publicidad paga</li>
+            <li>Apps nativas iOS / Android</li>
+            <li>Integraciones fuera de las listadas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="col"><h2>Plazos</h2>
+      <p>Estimado de 4 semanas hábiles, contadas desde la seña de inicio y la entrega de accesos (Drive, Calendar, Mercado Pago), la línea de WhatsApp dedicada y la convención de nombres aplicada a las carpetas.</p></div>
+      <div class="weeks">
+        <div class="week"><span class="w">Semana 1</span><span class="d">Diseño UX y montaje del servidor: Docker, Portainer, Caddy, PocketBase, n8n y Evolution API</span></div>
+        <div class="week"><span class="w">Semana 2</span><span class="d">Catálogo, sincronización con Google Drive y SEO técnico</span></div>
+        <div class="week"><span class="w">Semana 3</span><span class="d">Turnero Cal.com, Google Calendar y Mercado Pago en prueba; modelo de datos de alquileres en PocketBase</span></div>
+        <div class="week"><span class="w">Semana 4</span><span class="d">Workflows de n8n (WhatsApp vía Evolution, Sheets, recordatorios de prueba y devolución), QA y publicación</span></div>
+      </div>
+    </section>
+
+    <section class="col">
+      <h2>Condiciones</h2>
+      <ul class="stack-list">
+        <li>Esta propuesta tiene una validez de <b>15 días</b> desde su fecha.</li>
+        <li>El pago de inicio (Opción A) no es reembolsable una vez comenzado el diseño.</li>
+        <li>En la Opción A, al saldar el desarrollo el código y la configuración quedan a nombre de IMPEROS; el servidor se mantiene mientras siga el abono. En la Opción B, todo permanece a nombre de FranMaxi mientras dure la suscripción.</li>
+        <li>El mantenimiento mensual se revisa cada 6 meses según inflación (índice a acordar).</li>
+        <li><b>Acuerdo de difusión (Opción A):</b> IMPEROS figura como caso de éxito en franmaxi.dev, incluye un crédito con enlace a franmaxi.dev en el pie de su sitio y menciona el desarrollo en sus redes.</li>
+        <li>Soporte por WhatsApp y correo en horario hábil.</li>
+      </ul>
+    </section>
+
+    <footer class="doc">
+      <span>FranMaxi.dev</span>
+      <span><a href="https://franmaxi.dev">franmaxi.dev</a></span>
+      <span><a href="https://wa.me/5493815744776">WhatsApp +54 9 381 574-4776</a></span>
+      <span>Propuesta para IMPEROS &middot; {fecha}</span>
+    </footer>
+
+  </div>
+</body>
+</html>
