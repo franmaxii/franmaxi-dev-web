@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# archivos temporales de las piezas de marca
+brand/.tmp/

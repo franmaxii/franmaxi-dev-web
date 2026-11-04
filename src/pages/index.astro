@@ -1,178 +1,205 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { WHATSAPP_NUMBER, waLink } from '../lib/contact';
+
+const chips = ['Bot de WhatsApp', 'Agente de IA', 'Automatizar ventas', 'Sistema a medida'];
+const stack = ['Astro', 'n8n', 'Cloudflare', 'Docker', 'PocketBase'];
+const tape = ['Código que escala', 'IA que resuelve', ...stack];
+
+const chatFeatures = ['Una página con tus textos y secciones', 'Botón de contacto por WhatsApp', 'Cambios por chat cuando los necesites'];
+
+const changasFeatures = ['Portfolio con diseño a partir de tu obra', 'Proyectos con créditos entre artistas', 'Videos desde YouTube'];
+
+const services = [
+    {
+        kind: 'Flujos',
+        title: 'Automatización n8n',
+        text: 'Conectamos WhatsApp, CRMs y correo en flujos de trabajo que te sacan de encima las tareas manuales.',
+    },
+    {
+        id: 'agentes',
+        kind: 'Agentes',
+        title: 'Agentes de IA',
+        text: 'Asistentes con memoria y contexto, preparados con los datos de tu empresa, para atención al cliente o uso interno.',
+    },
+    {
+        kind: 'Web',
+        title: 'Web en el edge',
+        text: 'Sitios rápidos con Astro, desplegados en la red global de Cloudflare.',
+    },
+];
+
+const examples = [
+    {
+        title: 'Agente de ventas inmobiliario',
+        tags: ['OpenAI', 'WhatsApp'],
+        text: 'Bot conectado al catálogo de propiedades. Califica consultas las 24 horas, agenda visitas en el calendario y guarda los datos en el CRM.',
+    },
+    {
+        title: 'Onboarding automático',
+        tags: ['n8n', 'APIs'],
+        text: 'Flujo que detecta un pago, crea la cuenta del usuario, envía el correo de bienvenida y avisa al equipo por Slack.',
+    },
+];
 ---
 
-<Layout title="FranMaxi | IA & Software Solutions">
-    <main class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-24 md:pb-32 text-center">
-        
-        <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-xs font-semibold tracking-wide backdrop-blur-sm select-none">
-            NUEVA ERA DIGITAL 2026
-        </div>
+<Layout title="FranMaxi.dev | Productos, automatización e IA">
+    <main>
+        <section class="relative isolate flex min-h-[min(calc(100svh-6rem),56rem)] flex-col overflow-hidden" aria-labelledby="hero-title">
+            <canvas data-terrain class="absolute inset-x-0 bottom-0 -z-10 h-[50%] w-full [mask-image:linear-gradient(to_bottom,transparent,black_26%)] md:h-[56%]" aria-hidden="true"></canvas>
 
-        <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
-            Sistemas inteligentes para <br class="hidden md:block"/> 
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-blue-600">escalar tu negocio.</span>
-        </h1>
-        <p class="text-base md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-            Combinamos desarrollo web de ultra velocidad (Astro) con automatizaciones avanzadas (n8n) e Inteligencia Artificial.
-        </p>
+            <div class="wrap pb-[34svh] pt-12 md:pb-[30svh] md:pt-16">
+                <p class="hud mb-6"><span class="text-volt">//</span> Software, automatización e IA</p>
+                <h1 id="hero-title" class="display text-[clamp(2.75rem,7.7vw,7.75rem)]">
+                    <span class="block">Código que escala.</span>
+                    <span class="glitch block text-volt [text-shadow:0_0_42px_rgb(200_255_46/0.35)]" data-text="IA que resuelve.">IA que resuelve.</span>
+                </h1>
 
-        <div class="relative bg-[#0a0a0a]/80 border border-gray-800 rounded-2xl shadow-2xl p-2 max-w-2xl mx-auto backdrop-blur-xl transition-all hover:border-gray-700 hover:shadow-purple-500/10 duration-500 text-left">
-            
-            <div class="flex items-center px-4 py-3 mb-2 border-b border-gray-800/50">
-                <div class="flex gap-2" aria-hidden="true">
-                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                </div>
-                <div class="mx-auto flex text-[10px] md:text-xs text-gray-400 font-medium tracking-wider items-center gap-2 select-none">
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true"></span>
-                    ASISTENTE IA ACTIVO
-                </div>
-            </div>
-
-            <div class="px-4 pb-4 flex flex-col gap-5 pt-2">
-                <div class="flex gap-3 items-start">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center flex-shrink-0 font-bold text-xs shadow-lg select-none">FM</div>
-                    <div class="bg-gray-800/40 rounded-2xl rounded-tl-sm px-5 py-3.5 text-sm text-gray-200 border border-gray-700/50 leading-relaxed shadow-inner">
-                        ¡Hola! Soy la IA de FranMaxi. ¿Qué tipo de solución estás buscando construir hoy?
+                <div class="mt-10 grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:gap-16">
+                    <div>
+                        <p class="lead max-w-xl">Productos, automatizaciones y agentes de IA para negocios reales. Hechos en Tucumán, listos para cualquier lado.</p>
+                        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                            <a href="#productos" class="btn btn-primary">Ver productos <span aria-hidden="true">↓</span></a>
+                            <a href="/servicios" class="btn btn-ghost">Servicios a medida</a>
+                        </div>
                     </div>
+
+                    <form data-brief action={`https://wa.me/${WHATSAPP_NUMBER}`} method="get" target="_blank" class="cut p-5 md:p-6 [--fill:rgb(11_13_20/0.94)]">
+                        <div class="mb-4 flex items-center justify-between gap-4">
+                            <label for="brief-input" class="font-display text-lg font-bold">¿Qué querés construir?</label>
+                            <span class="hud hidden shrink-0 text-[0.62rem]! sm:inline" aria-hidden="true">Nuevo proyecto</span>
+                        </div>
+                        <div class="flex items-stretch gap-2 border border-line bg-void focus-within:border-volt">
+                            <span class="flex items-center pl-3 font-mono text-volt" aria-hidden="true">&gt;</span>
+                            <input id="brief-input" name="text" type="text" required autocomplete="off" placeholder="Ej: bot de ventas" class="min-w-0 flex-1 bg-transparent py-3 pr-2 font-mono text-sm text-bone outline-none placeholder:text-mute/80" />
+                            <button type="submit" class="m-1 shrink-0 bg-volt px-4 font-mono text-xs font-bold uppercase tracking-wider text-void transition-colors hover:bg-bone">
+                                Enviar <span aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            {chips.map((chip) => (
+                                <button type="button" data-chip={chip} class="border border-line px-2.5 py-1.5 font-mono text-[0.7rem] text-mute transition-colors hover:border-volt hover:text-volt">{chip}</button>
+                            ))}
+                        </div>
+                        <p class="mt-3 text-xs text-mute">Se abre WhatsApp con tu mensaje listo para enviar.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div class="relative z-10 -my-1 -rotate-1 overflow-hidden bg-volt py-2.5 text-void">
+            <ul class="sr-only" aria-label="Tecnología que usamos">
+                {stack.map((name) => <li>{name}</li>)}
+            </ul>
+            <div class="flex w-max animate-tape" aria-hidden="true">
+                {[0, 1].map(() => (
+                    <div class="flex shrink-0">
+                        {[...tape, ...tape, ...tape].map((word) => (
+                            <span class="flex items-center gap-5 pr-5 font-display text-lg font-extrabold uppercase">{word}<span class="font-mono text-sm">//</span></span>
+                        ))}
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <section id="productos" class="wrap scroll-mt-24 py-24 md:py-36">
+            <span id="portfolio"></span>
+            <SectionHead index="01" label="Productos" title="Software propio" lead="Productos que hacemos nosotros, cada uno para resolver un problema concreto." />
+
+            <div class="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-12">
+                <article class="cut reveal grid grid-cols-[minmax(0,1fr)] gap-8 p-6 md:grid-cols-2 md:p-10 lg:col-span-12 [--edge:rgb(255_45_120/0.55)]">
+                    <div class="flex flex-col">
+                        <p class="tag w-fit text-hot"><span class="led" aria-hidden="true"></span> En construcción</p>
+                        <h3 class="display mt-6 text-[clamp(1.9rem,4.6vw,4rem)]">
+                            <span class="block">chat.</span>
+                            <span class="block">franmaxi<span class="text-hot">.lol</span></span>
+                        </h3>
+                        <p class="lead mt-4">Escribí qué necesitás y el chat arma tu página web sencilla, sin tocar código.</p>
+                        <ul class="mt-6 space-y-2 font-mono text-sm text-bone">
+                            {chatFeatures.map((feature) => (
+                                <li><span class="mr-2 text-hot" aria-hidden="true">+</span>{feature}</li>
+                            ))}
+                        </ul>
+                        <a href={waLink('Hola FranMaxi, quiero probar chat.franmaxi.lol cuando esté listo.')} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-8 w-fit">Quiero probarlo <span aria-hidden="true">↗</span></a>
+                    </div>
+
+                    <div class="self-center border border-line bg-void p-4 md:p-5" aria-hidden="true">
+                        <div class="ml-auto max-w-[85%] bg-panel-2 px-3 py-2.5 text-sm text-bone">Haceme una web para mi taller de bicis en Tucumán.</div>
+                        <div class="mt-3 max-w-[85%] border-l-2 border-hot px-3 py-1 text-sm text-mute">Listo. Mirá cómo quedó tu página:</div>
+                        <div class="mt-4 border border-line p-3 md:p-4">
+                            <div class="flex items-center justify-between gap-3 border-b border-line pb-3">
+                                <span class="hud text-bone!">Taller La Cadena</span>
+                                <span class="hud shrink-0 text-hot! text-[0.62rem]!">Vista previa</span>
+                            </div>
+                            <div class="mt-3 grid grid-cols-3 gap-2 text-center font-mono text-[0.68rem] text-bone sm:text-xs">
+                                <span class="border border-line py-2">Servicios</span>
+                                <span class="border border-line py-2">Horarios</span>
+                                <span class="border border-line py-2">Ubicación</span>
+                            </div>
+                            <div class="mt-4 bg-volt py-2.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-void">Escribir por WhatsApp</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="cut reveal grid grid-cols-[minmax(0,1fr)] gap-8 p-6 md:grid-cols-2 md:p-10 lg:col-span-12 [--edge:rgb(255_45_120/0.55)]">
+                    <div class="flex flex-col">
+                        <p class="tag w-fit text-hot"><span class="led" aria-hidden="true"></span> En construcción</p>
+                        <h3 class="display mt-6 text-[clamp(2.25rem,4.6vw,4rem)]">changas<span class="text-hot">.cv</span></h3>
+                        <p class="lead mt-4">La red de la escena artística y hippie. Contás qué hacés, subís tu obra y la IA diseña tu portfolio.</p>
+                        <ul class="mt-6 space-y-2 font-mono text-sm text-bone">
+                            {changasFeatures.map((feature) => (
+                                <li><span class="mr-2 text-hot" aria-hidden="true">+</span>{feature}</li>
+                            ))}
+                        </ul>
+                        <a href={waLink('Hola FranMaxi, soy parte de la escena y quiero sumarme a changas.cv.')} target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-8 w-fit">Quiero sumarme <span aria-hidden="true">↗</span></a>
+                    </div>
+
+                    <div class="self-center border border-line bg-void p-4 md:p-5" aria-hidden="true">
+                        <div class="ml-auto max-w-[85%] bg-panel-2 px-3 py-2.5 text-sm text-bone">Pinto murales y toco en una banda.</div>
+                        <div class="mt-3 max-w-[85%] border-l-2 border-hot px-3 py-1 text-sm text-mute">Pasame fotos de tus obras y el link de YouTube de tu último show.</div>
+                        <div class="mt-4 flex items-center justify-between gap-3 border border-hot/60 px-3 py-2.5">
+                            <span class="truncate font-mono text-sm text-bone">luna.changas.cv</span>
+                            <span class="hud shrink-0 text-hot! text-[0.62rem]!">Vista previa</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="servicios" class="scroll-mt-24 border-t border-line bg-panel/40">
+            <div class="wrap py-24 md:py-36">
+                <SectionHead index="02" label="Servicios" title="Sistemas a medida" lead="Si ningún producto te alcanza, lo armamos para tu operación." />
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    {services.map((service) => (
+                        <article id={service.id} class="cut reveal scroll-mt-24 p-6 md:p-8">
+                            <p class="hud text-volt!" aria-hidden="true">{service.kind}</p>
+                            <h3 class="mt-8 font-display text-2xl font-bold uppercase">{service.title}</h3>
+                            <p class="mt-3 leading-relaxed text-mute">{service.text}</p>
+                        </article>
+                    ))}
                 </div>
 
-                <form class="relative mt-2" onsubmit="event.preventDefault()">
-                    <label for="ia-input" class="sr-only">Escribe tu consulta para la IA</label>
-                    <input
-                        id="ia-input"
-                        type="text"
-                        placeholder="Ej: Bot que responda WhatsApp..."
-                        class="w-full bg-[#111] border border-gray-700 rounded-xl pl-5 pr-28 md:pr-36 py-4 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder-gray-500 shadow-inner"
-                    />
-                    <button
-                        type="submit"
-                        aria-label="Generar respuesta"
-                        class="absolute right-2 top-2 bottom-2 bg-white text-black hover:bg-gray-200 px-4 md:px-5 rounded-lg text-sm font-bold transition-all flex items-center gap-2 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#111] active:scale-95"
-                    >
-                        <span class="hidden md:inline">Generar</span> <span class="text-base leading-none">✨</span>
-                    </button>
-                </form>
-            </div>
-        </div>
+                <h3 class="hud mb-4 mt-16 text-bone!">Sistemas que ya armamos</h3>
+                <ul class="border-t border-line">
+                    {examples.map((example) => (
+                        <li class="reveal grid gap-3 border-b border-line py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)_11rem] md:items-center md:gap-8">
+                            <h4 class="font-display text-xl font-bold">{example.title}</h4>
+                            <p class="text-mute">{example.text}</p>
+                            <p class="flex gap-2 md:justify-end">
+                                {example.tags.map((tag) => <span class="tag text-ice">{tag}</span>)}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
 
-        <div class="mt-20 md:mt-24 pt-10 border-t border-gray-800/50 max-w-3xl mx-auto">
-            <h2 class="text-xs text-gray-500 mb-6 uppercase tracking-widest font-semibold">Tecnología de la infraestructura</h2>
-            <div class="flex flex-wrap justify-center gap-6 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 select-none">
-                <span class="text-base md:text-lg font-bold tracking-tight text-white">Astro</span>
-                <span class="text-base md:text-lg font-bold tracking-tight text-white">n8n</span>
-                <span class="text-base md:text-lg font-bold tracking-tight text-white">Cloudflare</span>
-                <span class="text-base md:text-lg font-bold tracking-tight text-white">Docker</span>
-                <span class="text-base md:text-lg font-bold tracking-tight text-white">PocketBase</span>
+                <a href="/servicios" class="btn btn-ghost mt-10">Ver todos los servicios <span aria-hidden="true">→</span></a>
             </div>
-        </div>
-        
+        </section>
     </main>
 
-    <section id="servicios" class="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 border-t border-gray-900 scroll-mt-20">
-        <div class="text-center mb-16 md:mb-20">
-            <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-                Soluciones de <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">alta ingeniería</span>
-            </h2>
-            <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-                No instalamos plugins. Construimos infraestructuras a medida para que tu empresa opere en piloto automático y escale sin límites.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article class="bg-[#0a0a0a]/50 border border-gray-800 p-8 rounded-2xl hover:border-purple-500/50 hover:bg-[#111] transition-all duration-300 md:hover:-translate-y-2 group backdrop-blur-sm">
-               <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-purple-500/20 transition-all text-purple-400">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Automatización n8n</h3>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Conectamos tu ecosistema (WhatsApp, CRMs, Emails). Diseñamos flujos de trabajo que eliminan tareas manuales y ahorran cientos de horas mensuales.
-                </p>
-            </article>
-
-            <article id="agentes" class="bg-[#0a0a0a]/50 border border-gray-800 p-8 rounded-2xl hover:border-blue-500/50 hover:bg-[#111] transition-all duration-300 md:hover:-translate-y-2 group backdrop-blur-sm scroll-mt-20">
-                <div class="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all text-blue-400">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Agentes de IA</h3>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Desarrollo de asistentes virtuales con memoria y contexto. Modelos entrenados con los datos de tu empresa para atención al cliente o uso interno.
-                </p>
-            </article>
-
-            <article class="bg-[#0a0a0a]/50 border border-gray-800 p-8 rounded-2xl hover:border-gray-500/50 hover:bg-[#111] transition-all duration-300 md:hover:-translate-y-2 group backdrop-blur-sm">
-                <div class="w-14 h-14 rounded-xl bg-gray-500/10 border border-gray-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-gray-500/20 transition-all text-gray-400">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-white">Arquitectura Web Edge</h3>
-                <p class="text-sm text-gray-400 leading-relaxed">
-                    Sitios web estáticos hiper-rápidos con Astro y despliegue global en Cloudflare. Seguridad militar y tiempos de carga de milisegundos.
-                </p>
-            </article>
-        </div>
-        <div class="mt-10 text-center">
-            <a href="/servicios" class="inline-flex items-center gap-2 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors">
-                Ver desglose completo de servicios <span>→</span>
-            </a>
-        </div>
-    </section>
-
-    <section id="portfolio" class="relative z-10 max-w-6xl mx-auto px-6 py-24 md:py-32 border-t border-gray-900 scroll-mt-20">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-                Sistemas en <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">producción</span>
-            </h2>
-            <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
-                Casos reales donde nuestra infraestructura automatizada multiplicó la eficiencia operativa.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <article class="group relative rounded-3xl border border-gray-800 bg-[#0a0a0a]/50 p-8 hover:bg-[#111] transition-all duration-300 overflow-hidden md:hover:-translate-y-1">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-all duration-500"></div>
-                <div class="flex justify-between items-start mb-6 relative z-10">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">OpenAI</span>
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-500/10 text-green-400 border border-green-500/20">WhatsApp</span>
-                    </div>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded p-1" aria-label="Ver detalles del Agente Inmobiliario">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-                    </a>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3 relative z-10 group-hover:text-purple-300 transition-colors">Agente de Ventas Inmobiliario</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                    Bot conversacional conectado al catálogo de propiedades. Califica leads 24/7, agenda visitas en el calendario y guarda los datos en el CRM automáticamente.
-                </p>
-                <div class="h-1 w-full bg-gradient-to-r from-purple-500 to-transparent rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            </article>
-
-            <article class="group relative rounded-3xl border border-gray-800 bg-[#0a0a0a]/50 p-8 hover:bg-[#111] transition-all duration-300 overflow-hidden md:hover:-translate-y-1">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/30 transition-all duration-500"></div>
-                <div class="flex justify-between items-start mb-6 relative z-10">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">n8n</span>
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">APIs</span>
-                    </div>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded p-1" aria-label="Ver detalles del Onboarding Automático">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-                    </a>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3 relative z-10 group-hover:text-blue-300 transition-colors">Onboarding Automático</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                    Flujo de n8n que detecta un pago exitoso, crea la cuenta del usuario en la base de datos, envía el email de bienvenida y notifica al equipo por Slack.
-                </p>
-                <div class="h-1 w-full bg-gradient-to-r from-blue-500 to-transparent rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            </article>
-
-        </div>
-    </section>
+    <script>
+        import '../scripts/terrain';
+    </script>
 </Layout>

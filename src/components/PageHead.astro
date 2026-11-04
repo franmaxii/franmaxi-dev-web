@@ -1,0 +1,20 @@
+---
+interface Props {
+    label: string;
+    title: string;
+    lead?: string;
+    meta?: string;
+}
+
+const { label, title, lead, meta } = Astro.props;
+---
+
+<header class="mb-12 md:mb-16">
+    <a href="/" class="hud mb-10 inline-flex items-center gap-2 transition-colors hover:text-volt">
+        <span aria-hidden="true">←</span> Volver al inicio
+    </a>
+    <p class="hud mb-4 text-volt!">// {label}</p>
+    <h1 class="display text-[clamp(2.4rem,6.5vw,5.5rem)]">{title}</h1>
+    {lead && <p class="lead mt-6 max-w-2xl">{lead}</p>}
+    {meta && <p class="hud mt-6">{meta}</p>}
+</header>

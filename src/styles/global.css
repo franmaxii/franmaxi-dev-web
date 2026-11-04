@@ -1,1 +1,290 @@
 @import "tailwindcss";
+
+/* Marca FranMaxi: los tokens de color y tipografía se usan en la web y en las piezas de redes. */
+@theme {
+    --color-void: #05060a;
+    --color-panel: #0b0d14;
+    --color-panel-2: #12151f;
+    --color-line: #262b3b;
+    --color-bone: #edf1f7;
+    --color-mute: #9aa2b7;
+    --color-volt: #c8ff2e;
+    --color-hot: #ff2d78;
+    --color-ice: #29e6ff;
+
+    --font-display: var(--font-oxanium), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+    --animate-tape: tape 48s linear infinite;
+}
+
+@keyframes tape {
+    to { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+    50% { opacity: 0.25; }
+}
+
+@keyframes glitch-a {
+    0%, 92%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+    93% { opacity: 0.9; transform: translate(-4px, 1px); clip-path: inset(8% 0 62% 0); }
+    95% { opacity: 0.9; transform: translate(5px, -1px); clip-path: inset(58% 0 12% 0); }
+    97% { opacity: 0.7; transform: translate(-2px, 0); clip-path: inset(30% 0 40% 0); }
+}
+
+@keyframes glitch-b {
+    0%, 92%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+    93% { opacity: 0.9; transform: translate(4px, -1px); clip-path: inset(60% 0 8% 0); }
+    95% { opacity: 0.9; transform: translate(-5px, 1px); clip-path: inset(14% 0 58% 0); }
+    97% { opacity: 0.7; transform: translate(3px, 0); clip-path: inset(44% 0 26% 0); }
+}
+
+@layer base {
+    html {
+        background: var(--color-void);
+        color-scheme: dark;
+        scroll-behavior: smooth;
+        scroll-padding-top: 5.5rem;
+        overflow-x: clip;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-bone);
+        overflow-x: clip;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Líneas de monitor y grano muy sutiles sobre toda la página. */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        pointer-events: none;
+        background: repeating-linear-gradient(0deg, rgb(255 255 255 / 0.016) 0 1px, transparent 1px 3px);
+    }
+
+    ::selection {
+        background: var(--color-volt);
+        color: var(--color-void);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-volt);
+        outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    .wrap {
+        width: 100%;
+        max-width: 84rem;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 3rem);
+    }
+
+    .hud {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-mute);
+    }
+
+    .display {
+        font-family: var(--font-display);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+    }
+
+    .lead {
+        color: var(--color-mute);
+        font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+        line-height: 1.55;
+    }
+
+    /* Panel con dos esquinas cortadas: el corte es el rasgo visual de la marca. */
+    .cut {
+        --cut: 18px;
+        --edge: var(--color-line);
+        --fill: var(--color-panel);
+        position: relative;
+        isolation: isolate;
+    }
+
+    .cut::before,
+    .cut::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+    }
+
+    .cut::before {
+        inset: 0;
+        background: var(--edge);
+        transition: background-color 0.25s ease;
+    }
+
+    .cut::after {
+        inset: 1px;
+        background:
+            linear-gradient(var(--color-volt), var(--color-volt)) 0 0 / 16px 2px no-repeat,
+            linear-gradient(var(--color-volt), var(--color-volt)) 0 0 / 2px 16px no-repeat,
+            var(--fill);
+    }
+
+    .cut-link:hover,
+    .cut-link:focus-within {
+        --edge: var(--color-volt);
+    }
+
+    .btn {
+        --cut: 10px;
+        position: relative;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        min-height: 3rem;
+        padding: 0.8rem 1.4rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn::before,
+    .btn::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+        transition: background-color 0.15s ease;
+    }
+
+    .btn::before { inset: 0; }
+    .btn::after { inset: 1px; }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary { color: var(--color-void); }
+    .btn-primary::before,
+    .btn-primary::after { background: var(--color-volt); }
+    .btn-primary:hover::before,
+    .btn-primary:hover::after { background: var(--color-bone); }
+
+    .btn-ghost { color: var(--color-bone); }
+    .btn-ghost::before { background: var(--color-mute); }
+    .btn-ghost::after { background: var(--color-void); }
+    .btn-ghost:hover { color: var(--color-volt); }
+    .btn-ghost:hover::before { background: var(--color-volt); }
+
+    .btn-sm {
+        --cut: 8px;
+        min-height: 2.5rem;
+        padding: 0.55rem 1rem;
+        font-size: 0.72rem;
+    }
+
+    .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.3rem 0.6rem;
+        border: 1px solid currentcolor;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .led {
+        width: 0.45rem;
+        height: 0.45rem;
+        background: currentcolor;
+        animation: blink 1.6s steps(2) infinite;
+    }
+
+    /* Separación cromática breve sobre un titular. */
+    .glitch {
+        position: relative;
+    }
+
+    .glitch::before,
+    .glitch::after {
+        content: attr(data-text) / "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    .glitch::before {
+        color: var(--color-hot);
+        animation: glitch-a 7s steps(1) infinite;
+    }
+
+    .glitch::after {
+        color: var(--color-ice);
+        animation: glitch-b 7s steps(1) infinite 0.05s;
+    }
+
+    /* Títulos de páginas internas. */
+    .prose-cyber {
+        color: var(--color-mute);
+        line-height: 1.7;
+    }
+
+    .prose-cyber section {
+        padding-left: 1.25rem;
+        border-left: 2px solid var(--color-line);
+    }
+
+    .prose-cyber h2 {
+        margin-bottom: 0.75rem;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-bone);
+    }
+
+    .prose-cyber strong {
+        font-weight: 500;
+        color: var(--color-bone);
+    }
+}
+
+@layer utilities {
+    .js .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .js .reveal.in {
+        opacity: 1;
+        transform: none;
+    }
+}
