@@ -1,7 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SectionHead from '../components/SectionHead.astro';
 import { WHATSAPP_NUMBER, waLink } from '../lib/contact';
+import desobedienteImg from '../assets/portfolio/desobediente.webp';
+import plazaImg from '../assets/portfolio/plaza-787.webp';
+import atomycoImg from '../assets/portfolio/atomyco.webp';
 
 const chips = ['Bot de WhatsApp', 'Agente de IA', 'Automatizar ventas', 'Sistema a medida'];
 const stack = ['Astro', 'n8n', 'Cloudflare', 'Docker', 'PocketBase'];
@@ -10,6 +14,46 @@ const tape = ['Código que escala', 'IA que resuelve', ...stack];
 const chatFeatures = ['Una página con tus textos y secciones', 'Botón de contacto por WhatsApp', 'Cambios por chat cuando los necesites'];
 
 const changasFeatures = ['Portfolio con diseño a partir de tu obra', 'Proyectos con créditos entre artistas', 'Videos desde YouTube'];
+
+// Capturas tomadas de cada sitio en línea. Para actualizarlas, reemplazá los .webp de src/assets/portfolio.
+const portfolio = [
+    {
+        name: 'Desobediente 13',
+        kind: 'Sitio web oficial',
+        status: 'En línea',
+        live: true,
+        url: 'https://desobediente.franmaxi.lol/',
+        domain: 'desobediente.franmaxi.lol',
+        image: desobedienteImg,
+        alt: 'Portada del sitio de Desobediente 13, con una foto de Milena García y el logo de la banda en rojo',
+        text: 'Sitio oficial de Milena García, pop rock de Buenos Aires. Reúne su música, los videoclips del EP, sus shows, su libro y un contador de corazones para el público.',
+        tags: ['Astro', 'Cloudflare'],
+    },
+    {
+        name: 'Plaza 787',
+        kind: 'Marketplace',
+        status: 'En construcción',
+        live: false,
+        url: 'https://787-ventas-pr.pages.dev/',
+        domain: '787-ventas-pr.pages.dev',
+        image: plazaImg,
+        alt: 'Portada de Plaza 787, con buscador y categorías de productos en estilo vidrio esmerilado',
+        text: 'Marketplace local para Puerto Rico. La gente publica gratis, el comprador escribe por chat y se encuentran para pagar en efectivo o con ATH Móvil.',
+        tags: ['Astro'],
+    },
+    {
+        name: 'Atomyco',
+        kind: 'Plataforma de streaming',
+        status: 'En desarrollo',
+        live: false,
+        url: 'https://atomykofilms.franmaxi.lol/',
+        domain: 'atomykofilms.franmaxi.lol',
+        image: atomycoImg,
+        alt: 'Portada de Atomyco con la película El Docke y el botón para inscribirse al casting',
+        text: 'Plataforma de cine y series independientes producidos por Sergio Podeley, con reproductor de video, cuentas de usuario y casting abierto con inscripción online.',
+        tags: ['Astro', 'Cloudflare Workers', 'D1', 'HLS'],
+    },
+];
 
 const services = [
     {
@@ -104,7 +148,6 @@ const examples = [
         </div>
 
         <section id="productos" class="wrap scroll-mt-24 py-24 md:py-36">
-            <span id="portfolio"></span>
             <SectionHead index="01" label="Productos" title="Software propio" lead="Productos que hacemos nosotros, cada uno para resolver un problema concreto." />
 
             <div class="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-12">
@@ -167,9 +210,47 @@ const examples = [
             </div>
         </section>
 
+        <section id="portfolio" class="wrap scroll-mt-24 border-t border-line py-24 md:py-36">
+            <SectionHead index="02" label="Portfolio" title="Proyectos" lead="Sitios y plataformas que diseñamos y desarrollamos." />
+
+            <div class="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2">
+                {portfolio.map((project, index) => {
+                    const featured = index === 0;
+                    return (
+                        <article class:list={['cut reveal group grid grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr] gap-6 p-4 md:p-6', featured ? 'lg:col-span-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:grid-rows-1 lg:items-center lg:gap-10' : '', project.live ? '' : '[--edge:rgb(255_45_120/0.4)]']}>
+                            <a href={project.url} target="_blank" rel="noopener noreferrer" class="block border border-line bg-void transition-colors hover:border-volt focus-visible:border-volt" aria-label={`Abrir ${project.name} en una pestaña nueva`}>
+                                <span class="flex items-center justify-between gap-3 border-b border-line px-3 py-2" aria-hidden="true">
+                                    <span class="truncate font-mono text-[0.7rem] text-mute">{project.domain}</span>
+                                    <span class="flex shrink-0 gap-1.5"><i class="h-2 w-2 bg-line"></i><i class="h-2 w-2 bg-line"></i><i class:list={['h-2 w-2', project.live ? 'bg-volt' : 'bg-hot']}></i></span>
+                                </span>
+                                <span class="block aspect-[16/10] overflow-hidden">
+                                    <Image src={project.image} alt={project.alt} widths={[480, 800, 1200]} sizes={featured ? '(min-width: 1024px) 720px, 100vw' : '(min-width: 1024px) 600px, 100vw'} class="block h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+                                </span>
+                            </a>
+
+                            <div class:list={['flex flex-col', featured ? 'lg:pr-4' : 'px-2 pb-2']}>
+                                <p class:list={['tag w-fit', project.live ? 'text-volt' : 'text-hot']}><span class="led" aria-hidden="true"></span> {project.status}</p>
+                                <h3 class:list={['display mt-5', featured ? 'text-[clamp(2rem,4vw,3.5rem)]' : 'text-[clamp(1.75rem,3vw,2.5rem)]']}>{project.name}</h3>
+                                <p class="hud mt-2">{project.kind}</p>
+                                <p class="mt-4 leading-relaxed text-mute">{project.text}</p>
+                                <p class="mt-5 flex flex-wrap gap-2">
+                                    {project.tags.map((tag) => <span class="tag text-ice">{tag}</span>)}
+                                </p>
+                                <div class="mt-auto pt-7">
+                                    <a href={project.url} target="_blank" rel="noopener noreferrer" class:list={['btn w-fit', project.live ? 'btn-primary' : 'btn-ghost']}>
+                                        {project.live ? 'Ver sitio' : 'Ver avance'} <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    );
+                })}
+            </div>
+        </section>
+
         <section id="servicios" class="scroll-mt-24 border-t border-line bg-panel/40">
             <div class="wrap py-24 md:py-36">
-                <SectionHead index="02" label="Servicios" title="Sistemas a medida" lead="Si ningún producto te alcanza, lo armamos para tu operación." />
+                <SectionHead index="03" label="Servicios" title="Sistemas a medida" lead="Si ningún producto te alcanza, lo armamos para tu operación." />
 
                 <div class="grid gap-6 md:grid-cols-3">
                     {services.map((service) => (
