@@ -172,3 +172,58 @@ h1 em.glow { text-shadow: 0 0 60px rgb(200 255 46 / 0.4); }
 .frame.og .logo { align-self: flex-start; }
 .og-title { flex: 1; font-size: 88px; padding-top: 30px; }
 .og .hud { font-size: 20px; }
+
+/* Proyectos de portfolio: capturas del sitio, con los cortes en las esquinas de la marca. */
+.browser, .telefono, .marca-tile {
+    border: 2px solid var(--line);
+    background: var(--panel);
+    clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+.browser img, .telefono img { display: block; width: 100%; height: auto; }
+
+.browser-bar { display: flex; align-items: center; gap: 10px; height: 44px; padding-inline: 18px; border-bottom: 2px solid var(--line); }
+.browser-bar i { width: 11px; height: 11px; background: var(--line); }
+.browser-bar span { margin-left: 10px; font: 500 20px "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+
+.dos-texto { display: flex; flex-direction: column; gap: 22px; }
+.dato { font: 500 26px/1.3 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bone); }
+.telefono { height: 800px; overflow: hidden; }
+
+.marca { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.marca-tile { display: grid; place-items: center; height: 130px; overflow: hidden; background: #04050c; }
+.marca-tile img { display: block; width: auto; height: 130px; }
+.marca-tile.violeta { background: #8f00ff; }
+.marca-tile.claro { background: #f3f3f6; }
+
+.dato.pink { color: var(--hot); }
+.cta.hot { background: var(--hot); }
+
+.seguro { display: grid; gap: 16px; margin-top: 8px; padding: 0; list-style: none; }
+.seguro li {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 24px 28px;
+    border: 2px solid var(--line);
+    background: var(--panel);
+    font-size: 36px;
+    line-height: 1.2;
+}
+.seguro li::before { content: ""; flex: none; width: 16px; height: 16px; background: var(--hot); }
+
+/* Carrusel cuadrado, 1080 × 1080. */
+.sm { font-size: 72px; }
+.xs { font-size: 66px; }
+.frame.cuadrado { padding: 60px; gap: 28px; }
+.cuadrado .body { gap: 20px; padding-top: 14px; }
+.cuadrado .lead { max-width: none; font-size: 31px; line-height: 1.3; }
+.cuadrado .hud { font-size: 22px; }
+.cuadrado .seguro { gap: 12px; margin-top: 4px; }
+.cuadrado .seguro li { padding: 18px 24px; font-size: 31px; }
+.cuadrado .cta { padding: 20px 28px; font-size: 25px; }
+.lado { display: grid; grid-template-columns: 1fr 370px; gap: 34px; }
+
+/* Flyer de un proyecto: el logo del cliente manda. */
+.flyer-logo { display: block; width: 1040px; max-width: none; height: auto; margin: -70px 0 -64px -40px; }
+.flyer .lead { font-size: 38px; }

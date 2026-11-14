@@ -16,8 +16,8 @@ const frame = ({ tag = '', tagColor = 'volt', body, footerLeft = WEB, footerRigh
 
 const terrain = (file, height, sink = 0) => `<img class="terrain" src="assets/${file}" style="height:${height}px;bottom:-${sink}px" alt="">`;
 
-const stripTerrain = (slide, total, height) =>
-    `<div class="terrain strip" style="height:${height}px;background-image:url(assets/terrain-carrusel.png);background-size:${1080 * total}px ${height}px;background-position:-${1080 * slide}px 0"></div>`;
+const stripTerrain = (slide, total, height, sink = 0) =>
+    `<div class="terrain strip" style="height:${height}px;bottom:-${sink}px;background-image:url(assets/terrain-carrusel.png);background-size:${1080 * total}px ${height}px;background-position:-${1080 * slide}px 0"></div>`;
 
 const sitio = `
     <div class="mock hot">
@@ -57,6 +57,61 @@ const tasks = [
 
 const CAROUSEL = tasks.length + 2;
 const carouselHeight = 420;
+
+const navegador = (imagen) => `
+    <div class="browser">
+        <div class="browser-bar"><i></i><i></i><i></i><span>Atomyco</span></div>
+        <img src="assets/atomyco/${imagen}" alt="">
+    </div>`;
+
+// Proyecto de portfolio en construcción, por eso va en Hot. Usa la misma cordillera del carrusel, que también tiene 5 imágenes.
+const atomyco = [
+    {
+        nombre: '1-portada',
+        body: `<h1 class="xs">Atomyco.<br><em class="pink">Plataforma de streaming<br>en construcción.</em></h1>
+            ${navegador('hero.jpg')}`,
+    },
+    {
+        nombre: '2-diseno',
+        body: `<h1 class="sm">Diseño con<br><em class="pink">identidad propia.</em></h1>
+            <p class="lead">Una marca y una interfaz pensadas para que cada obra se luzca.</p>
+            ${navegador('catalogo.jpg')}
+            <div class="marca">
+                <div class="marca-tile"><img src="assets/atomyco/logo.png" alt=""></div>
+                <div class="marca-tile violeta"><img src="assets/atomyco/atomyco-sobre-violeta.png" alt=""></div>
+                <div class="marca-tile claro"><img src="assets/atomyco/atomyco-sobre-claro.png" alt=""></div>
+            </div>`,
+    },
+    {
+        nombre: '3-casting',
+        body: `<div class="lado">
+                <div class="dos-texto">
+                    <h1 class="sm">Ya funciona:<br><em class="pink">el casting<br>de El Docke.</em></h1>
+                    <p class="dato pink">Abierto ahora</p>
+                    <p class="lead">Te anotás desde el celular, elegís fecha y lugar y te llega la confirmación por mail.</p>
+                </div>
+                <div class="telefono"><img src="assets/atomyco/casting-cel.jpg" alt=""></div>
+            </div>`,
+    },
+    {
+        nombre: '4-seguridad',
+        body: `<h1 class="sm">Seguridad<br><em class="pink">para datos reales.</em></h1>
+            <p class="lead">Un casting maneja datos personales, y los cuidamos como tales.</p>
+            <ul class="seguro">
+                <li>El panel es privado y pide clave.</li>
+                <li>Las pruebas no tocan los datos reales.</li>
+                <li>El formulario filtra a los bots.</li>
+                <li>Los datos se usan solo para la convocatoria.</li>
+            </ul>`,
+    },
+    {
+        nombre: '5-cierre',
+        final: true,
+        body: `<h1 class="sm">¿Querés tu propia<br><em class="pink">plataforma?</em></h1>
+            <p class="lead">Diseñamos y construimos plataformas de streaming a medida. Contanos tu idea.</p>
+            <span class="cta hot">Escribinos por mensaje directo</span>`,
+    },
+];
 
 export const terrains = [
     { file: 'terrain-post.png', width: 1080, height: 720 },
@@ -133,6 +188,34 @@ export const posts = [
             body: `<h1 class="lg">¿Qué tarea te saca <em>más tiempo?</em></h1>
                 <p class="lead">Contanos por WhatsApp y vemos cómo automatizarla.</p>
                 <span class="cta">Escribinos por mensaje directo</span>`,
+        }),
+    },
+    ...atomyco.map((pieza, index) => ({
+        file: `instagram/atomyco-${pieza.nombre}.png`,
+        width: 1080,
+        height: 1080,
+        html: frame({
+            tag: `En construcción · ${index + 1} / ${atomyco.length}`,
+            tagColor: 'hot',
+            kind: 'cuadrado',
+            art: stripTerrain(index, CAROUSEL, carouselHeight, 110),
+            footerRight: pieza.final ? 'Tucumán, AR' : 'Deslizá →',
+            body: pieza.body,
+        }),
+    })),
+    {
+        file: 'instagram/atomyco-flyer.png',
+        width: 1080,
+        height: 1080,
+        html: frame({
+            tag: 'En construcción',
+            tagColor: 'hot',
+            kind: 'cuadrado flyer',
+            art: terrain('terrain-og.png', 378, 90),
+            body: `<h1 class="md">Proyecto</h1>
+                <img class="flyer-logo" src="assets/atomyco/logo.png" alt="Atomyco">
+                <p class="lead">Plataforma de streaming de cine y series.</p>
+                <p class="dato pink">Ya funciona: el casting de El Docke</p>`,
         }),
     },
     {

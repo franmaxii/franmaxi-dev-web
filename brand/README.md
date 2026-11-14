@@ -60,6 +60,7 @@ Las imágenes listas para subir están en `export/instagram/`.
 |---|---|---|
 | Posteo | 1080 × 1350 | `post-01` a `post-03` |
 | Carrusel | 1080 × 1350 | `carrusel-1` a `carrusel-5`. La cordillera sigue de una imagen a la otra al deslizar |
+| Proyecto de portfolio | 1080 × 1080 | `atomyco-1` a `atomyco-5`. Carrusel de un proyecto, con capturas del sitio en `assets/atomyco/`. También `atomyco-flyer`, en una sola imagen |
 | Historia | 1080 × 1920 | `historia-1` y `historia-2`, esta última sin texto para escribir en la app |
 
 En las historias, dejá libres los 250 px de arriba y los 340 px de abajo, porque Instagram los tapa con su interfaz.
